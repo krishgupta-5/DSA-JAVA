@@ -12,7 +12,7 @@ public class PS03 {
         while (left <= right) {
             int mid = left + (right - left) / 2;
 
-            if (arr[mid] == target) {m
+            if (arr[mid] == target) {
                 last = mid;
                 left = mid + 1;
             } else if (arr[mid] < target) {

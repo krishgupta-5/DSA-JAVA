@@ -28,12 +28,12 @@ public class NodeToPath {
         newTree.right.left.left = new Node(70); 
         path = new ArrayList<>();
 
-        // System.out.println(find(newTree, 70));
-        // for (int i = path.size() - 1; i >= 0; i--) {
-        //     System.out.print(path.get(i) + " ");
-        // }
+        System.out.println(find(newTree, 70));
+        for (int i = path.size() - 1; i >= 0; i--) {
+            System.out.print(path.get(i) + " ");
+        }
 
-        printKLevelDown(newTree, 2);
+        // printKLevelDown(newTree, 2);
 
     }
 
