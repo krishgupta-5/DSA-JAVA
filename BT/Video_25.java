@@ -1,9 +1,10 @@
 package BT;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class Video_21 {
-
+public class Video_25 {
     public static class Node{
         int data;
         Node left;
@@ -16,7 +17,7 @@ public class Video_21 {
         }
     }
 
-    public static void kLevelDown(Node root, int k) {
+    public static void kLevelDown(Node root, int k, Node blocker) {
         if (root == null) return;
         int currLevel = 0;
         Queue<Node> queue = new LinkedList<>();
@@ -43,7 +44,39 @@ public class Video_21 {
         }
     }
 
+    static ArrayList<Integer> path;
+    public static boolean nodeToRoot(Node root, int data){
+        if(root == null){
+            return false;
+        }
+        if(root.data == data){
+            path.add(root.data);
+            return true;
+        }
 
+        boolean left = nodeToRoot(root.left, data);
+        if(left){
+            path.add(root.data);
+            return true;
+        }
+
+        boolean right = nodeToRoot(root.right, data);
+        if(right){
+            path.add(root.data);
+            return true;
+        }
+        return false;
+    }
+
+    public void printKNodesFar(Node root, int data, int k) {
+        path = new ArrayList<>();
+        nodeToRoot(root, data);
+
+        for (int i = 0; i < path.size(); i++) {
+            Node blocker = (i == 0) ? null : new Node(path.get(i - 1));
+            kLevelDown(new Node(path.get(i)), k - i, blocker);
+        }
+    }
     public static void main(String[] args) {
         Node root = new Node(50);
         root.left = new Node(25);
@@ -56,9 +89,7 @@ public class Video_21 {
         root.left.right.right = new Node(40);
         root.right.left.left = new Node(60);
         root.right.left.right = new Node(70);
-
-        int k = 2;
-        kLevelDown(root, k);
-        
+        nodeToRoot(root, 0);
+        kLevelDown(root, 0, root);
     }
 }
